@@ -90,3 +90,8 @@ def continuous_metric(y_true, y_pred, self_func=False):
     print('The log_loss of the model is: {}'.format(log_loss(y_true, y_pred)))
     if self_func != False:
         return self_func(y_true, y_pred)
+    
+def rmsle(y, y_pred):
+    assert len(y) == len(y_pred)
+    to_sum = [(math.log(y_pred[i]+1) - math.log(y[i]+1)) ** 2 for i, pred in enumerate(y_pred)]
+    return (sum(to_sum) * (1.0/len(y))) ** 0.5
